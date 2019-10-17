@@ -6,7 +6,7 @@ const STATE = {
    type: 'flows',
    rotating: false,
    animationStarted: false,
-   z: 1
+   z: 0
 }
 
 setTimeout(() => {
@@ -45,6 +45,7 @@ const dataLayer = new H.map.layer.TileLayer(dataProvider);
 map.addLayer(dataLayer);
 
 function setStyle(value) {
+   console.log(value);
    $('.time').innerHTML = `
    <span class="hour">${formatTime(value).time}</span>
    <span class="half">${formatTime(value).half}</span>`
@@ -123,9 +124,9 @@ $('.type').onclick = () => {
 
 function plot(ind) {
    $('.type').innerText = STATE.type.substring(0, 1).toUpperCase() + STATE.type.substring(1, STATE.type.length);
-   setStyle(ind);
+   setStyle(0);
 }
-plot(0);
+plot();
 
 const STEP = 2000;
 document.body.onkeydown = ({code}) => {   
