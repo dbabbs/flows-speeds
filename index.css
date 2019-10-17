@@ -217,4 +217,5 @@ body, html {
    color: rgba(255, 255, 255, 0.7);
    opacity: 1;
    transition: 1s all;
+   text-align: center;
 }
