@@ -121,19 +121,22 @@ $('.type').onclick = () => {
    plot();
 }
 
-function plot() {
+function plot(ind) {
    $('.type').innerText = STATE.type.substring(0, 1).toUpperCase() + STATE.type.substring(1, STATE.type.length);
-   setStyle(0);
+   setStyle(ind);
 }
-plot();
+plot(0);
 
 const STEP = 2000;
 document.body.onkeydown = ({code}) => {   
+   console.log(code);
    if (code === 'Space' && !STATE.animationStarted) {
       startAnimation();
       STATE.animationStarted = true;
    } else if (code === 'ArrowRight' || code === 'ArrowLeft') {
       rotate(code);
+   } else if (code === 'KeyD') {
+      drive('101')
    }
 }
 
@@ -175,3 +178,84 @@ function rotate(code) {
       rotation.stop();
    }
 }
+
+
+async function drive(file) {
+   let route = await fetch(`./resources/${file}.json`)
+                  .then(res => res.json())
+                  .then(res => res.map(x => [x[1], x[0]]));
+
+   const extended = [];
+
+   for (let i = 0; i < route.length - 1; i++) {
+
+      const distance = turf.distance(
+         [route[i][1], route[i][0]],
+         [route[i+1][1], route[i+1][0]],
+         {units: 'kilometers'}
+      )
+      // console.log(distance);
+      const constant = 0.1
+
+
+      const times =  distance * constant * 10;
+      console.log(times, distance);
+      for (let x = 1; x < 10; x++) {
+
+         
+         
+         
+
+
+         const lat = lerp(route[i][0], route[i+1][0], x * .1)
+         const lng = lerp(route[i][1], route[i+1][1], x * .1)
+         extended.push([lat, lng]);
+
+         // map.addObject(new H.map.Circle(
+         //    { lat, lng },
+         //    // The radius of the circle in meters
+         //    1,
+         //    {
+         //      style: {
+         //        strokeColor: 'white', // Color of the perimeter
+         //        lineWidth: 2,
+         //        fillColor: 'white'  // Color of the circle
+         //      }
+         //    }
+         //  ));
+      }
+   }
+
+   let v = 0; 
+
+   route = extended;
+
+   map.getEngine().setAnimationDuration(800)
+   let interval = setInterval(() => {
+      if (v === route.length) {
+         clearInterval(interval);
+      }
+      v++;
+
+      const heading = turf.bearing(
+         [route[v][1], route[v][0]],
+         [route[v + 10][1], route[v + 10][0]],
+      )
+
+      map.getViewModel().setLookAtData({
+         tilt: 50,
+         heading: heading - 180,
+         position: { lat: route[v][0], lng: route[v][1]},
+         zoom: map.getZoom()
+      }, true);
+      
+   }, 100)
+}
+
+function lerp(v0, v1, t) {
+   return v0*(1-t)+v1*t
+}
+
+const files = ['101', 'sf'];
+
+console.log('hi')
