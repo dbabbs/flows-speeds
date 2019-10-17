@@ -1,0 +1,56 @@
+<html>
+
+<head>
+   <title>Architecture</title>
+
+   <!-- Style -->
+   <link rel="stylesheet" type="text/css" href="index.css" />
+
+   <!-- JS API -->
+   <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+
+</head>
+
+<body>
+   <div class="info-container">
+      <div class="info">
+
+            Spacebar to start. Left or right keys for rotation.
+      </div>
+
+   </div>
+   <div class="loading-outer-container">
+      <div class="loading-inner-container">
+         <img src="./resources/loading.svg">
+      </div>
+      
+   </div>
+   <div class="map"></div>
+   <div class="overlay">
+      <div class="container">
+         <div class="time"></div>
+         <div class="desc-row">
+            <div contenteditable="true">San Francisco, CA</div>
+            <div class="type">Flows</div>
+         </div>
+         <div class="progress-container">
+            <div class="progress-fill"></div>
+            <div class="progress-background"></div>
+         </div>
+         <div class="progress-labels">
+            <div>12:00 AM</div>
+            <div>6:00 AM</div>
+            <div>12:00 PM</div>
+            <div>6:00 PM</div>
+            <div>11:59 PM</div>
+         </div>
+      </div>
+   </div>
+   <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+   <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+   <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+   <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+   <script type="module" src="app.js"></script>
+</body>
+
+</html>

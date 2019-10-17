@@ -1,0 +1,220 @@
+:root {
+   --aspect-constant: 35;
+   --font-family: FiraGO, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+@font-face {
+   font-family: FiraGO;
+   src: url(./resources/FiraGO/FiraGO-Regular.woff);
+}
+
+@font-face {
+   font-family: FiraGO;
+   src: url(./resources/FiraGO/FiraGO-Bold.woff);
+   font-weight: bold;
+}
+
+@font-face {
+   font-family: FiraGO;
+   src: url(./resources/FiraGO/FiraGO-Medium.woff);
+   font-weight: 500;
+}
+
+@font-face {
+   font-family: FiraGO;
+   src: url(./resources/FiraGO/FiraGO-Light.woff);
+   font-weight: 100;
+}
+
+
+@font-face {
+   font-family: FiraMono;
+   src: url(./resources/FiraMono/FiraMono-Regular.woff);
+}
+
+@font-face {
+   font-family: FiraMono;
+   src: url(./resources/FiraMono/FiraMono-Bold.woff);
+   font-weight: bold;
+}
+
+@font-face {
+   font-family: FiraMono;
+   src: url(./resources/FiraMono/FiraMono-Medium.woff);
+   font-weight: 500;
+}
+
+body, html {
+   border: 0;
+   padding: 0;
+   margin: 0;
+   height: 100vh;
+   width: 100vw;
+   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+   display: flex;
+   flex-direction: column;
+   background: #f3f3f3;
+   transition: .3s background ease-in-out;
+   font-family: var(--font-family);
+}
+
+.map {
+   height: 100vh;
+   width: 100vw;
+}
+
+.sidebar {
+   margin: 15px;
+   padding: 15px;
+   width: 250px;
+   z-index: 1000;
+   position: absolute;
+   top: 0;
+   background: black;
+}
+
+.sidebar input {
+   width: 100%;
+}
+
+.H_imprint {
+   display: none;
+}
+
+.overlay {
+   position: absolute;
+   bottom: 0;
+   /* height: 250px; */
+   width: 100%;
+   background: linear-gradient(to bottom, transparent, #151A20, #151A20);
+}
+
+.overlay .container {
+   max-width: 75%;
+   /* height: 100%; */
+   padding-bottom: 40px;
+   margin: auto;
+   display: flex;
+   flex-direction: column;
+}
+
+
+.time {
+   
+   color: rgba(255, 255, 255, 0.8);
+   font-weight: 500;
+   /* padding-bottom: 10px; */
+}
+
+.desc-row {
+   display: flex;
+   justify-content: space-between;
+   color: rgba(255, 255, 255, 0.5);
+   font-size: 24px;
+   padding-bottom: 20px;
+}
+
+
+.hour {
+   
+   font-size: 80px;
+}
+
+.half {
+   font-size: 40px;
+}
+
+.type {
+   cursor: pointer;
+}
+
+.progress-container {
+   position: relative;
+}
+
+.progress-fill, .progress-background {
+   height: 10px;
+   width: 100%;
+   border-radius: 10px;
+   position: absolute;
+   top: 0;
+}
+
+.progress-background {
+   background: rgb(35, 39, 43);
+}
+
+.progress-fill {
+   background: #677C8D;  /*#8AA4ED;*/
+   width: 0%;
+   z-index: 5000;
+}
+
+.progress {
+   animation: progress-bar 48s linear infinite;
+   animation-fill-mode: both; 
+}
+
+@keyframes progress-bar {
+   0% { width: 0; }
+   100% { width: 100%; }
+}
+
+.progress-labels {
+   padding-top: 20px;
+   display: flex;
+   justify-content: space-between;
+   color: rgba(255, 255, 255, 0.3)
+}
+
+
+.loading-outer-container {
+   position: absolute;
+   top: 0;
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 5000;
+   opacity: 0;
+   pointer-events: none;
+   transition: .3s all;
+}
+
+.loading-inner-container {
+   padding: 20px;
+   background: rgba(0, 0, 0, 0.5);
+   border-radius: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   
+}
+
+.loading-inner-container img {
+   height: 75px;
+   width: 75px;
+}
+
+.info-container {
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   
+}
+
+.info {
+   margin: 10px;
+   background: rgba(0, 0, 0, 0.7);
+   border-radius: 3px;
+   padding: 10px;
+   position: absolute;
+   top: 0;
+   z-index: 5000;
+   color: rgba(255, 255, 255, 0.7);
+   opacity: 1;
+   transition: 1s all;
+}
