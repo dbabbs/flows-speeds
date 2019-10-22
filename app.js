@@ -1,6 +1,6 @@
-import { center, hereCredentials } from "./config.js";
+import { center, hereCredentials, max } from "./config.js";
 import MapRotation from './MapRotation.js';
-import { formatTime, $, $$ } from './helpers.js';
+import { formatTime, $, $$} from './helpers.js';
 
 const STATE = {
    type: 'flows',
@@ -8,6 +8,19 @@ const STATE = {
    animationStarted: false,
    z: 0
 }
+
+const hsl = h => h <= 360 ? `hsl(${h}, 100%, 44%)` : `hsl(360, 100%, 44%)`;
+
+const colors = {
+   speeds: [
+      hsl(0), hsl(max.speeds * 4)
+   ],
+   flows: [
+      hsl(200), hsl(max.flows * 60 + 200)
+   ]
+}
+
+console.log(colors);
 
 setTimeout(() => {
    $('.info').style.opacity = 0;
@@ -71,32 +84,6 @@ function setStyle(value) {
 
    //this is for close ups
    dataStyle.setProperty("layers.xyz.lines.draw.lines.width", "16");
-   // dataStyle.setProperty("layers.xyz", {
-   //    top: {
-   //       filter: {
-   //          '$zoom': {
-   //             max: 15
-   //          }
-   //       },
-   //       draw: {
-   //          lines: {
-   //             width: 16
-   //          }
-   //       }
-   //    },
-   //    bottom: {
-   //       filter: {
-   //          '$zoom': {
-   //             min: 15
-   //          }
-   //       },
-   //       draw: {
-   //          lines: {
-   //             width: 16
-   //          }
-   //       }
-   //    }
-   // });
 
    dataStyle.setProperty("layers.xyz.lines.draw.lines.order", function() {
       return feature[`properties.speeds.${global.value}`];
@@ -168,6 +155,8 @@ map.addEventListener('mapviewchangeend', () => {
    console.log(
       map.getViewModel().getLookAtData()
    )
+
+   
 });
 
 const rotation = new MapRotation(map);
@@ -179,6 +168,9 @@ function rotate(code) {
       rotation.stop();
    }
 }
+
+
+
 
 
 async function drive(file) {
