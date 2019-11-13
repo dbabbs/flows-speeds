@@ -11,16 +11,48 @@ const STATE = {
 
 const hsl = h => h <= 360 ? `hsl(${h}, 100%, 44%)` : `hsl(360, 100%, 44%)`;
 
+const colorRanges = {
+   speeds: {
+      start: 0,
+      end: max.speeds * 4
+   }, 
+   flows: {
+      start: 200,
+      end: max.flows * 60 + 200
+   }
+}
 const colors = {
    speeds: [
-      hsl(0), hsl(max.speeds * 4)
+      hsl(colorRanges.speeds.start), hsl(colorRanges.speeds.end)
    ],
    flows: [
-      hsl(200), hsl(max.flows * 60 + 200)
+      hsl(colorRanges.flows.start), hsl(colorRanges.flows.end)
    ]
 }
 
-console.log(colors);
+function calculateGradient(type) {
+   const keyColors = [];
+   const steps = 5;
+   const hslMin = colorRanges[type].start;
+   const hslMax = (colorRanges[type].end) > 360 ? 360 : (colorRanges[type].end);
+   // console.log(hslMax);
+   // const diff = hslMax - hslMin;
+   // console.log(diff);
+   // for (let i = 0; i < steps + 1; i++) {
+   //    keyColors.push(
+   //      hsl(( diff / steps) * i + hslMin)
+   //    )
+   // }
+   // console.log(keyColors);
+
+   // const squares = keyColors.map(x => `<div class="legend-square" style="background: ${x}"></div>`).join('');
+   // console.log(squares);
+   // document.querySelector('.color-legend').innerHTML = squares;
+   const gradient = `linear-gradient(to right, ${hsl(hslMin)}, ${hsl((hslMax - hslMin) / 2 + hslMin)}, ${hsl(hslMax)}`;
+   
+   return gradient;
+}
+
 
 setTimeout(() => {
    $('.info').style.opacity = 0;
@@ -110,7 +142,8 @@ $('.type').onclick = () => {
 }
 
 function plot(ind) {
-   $('.type').innerText = STATE.type.substring(0, 1).toUpperCase() + STATE.type.substring(1, STATE.type.length);
+   document.querySelector('.color-legend').style.background = calculateGradient(STATE.type)
+   // $('.type').innerText = STATE.type.substring(0, 1).toUpperCase() + STATE.type.substring(1, STATE.type.length);
    setStyle(0);
 }
 plot();

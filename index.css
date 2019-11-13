@@ -111,12 +111,22 @@ body, html {
 .desc-row {
    display: flex;
    justify-content: space-between;
+   align-items: flex-end;
    color: rgba(255, 255, 255, 0.5);
    font-size: 24px;
    padding-bottom: 20px;
 }
 
+.color-legend {
+   border-radius: 2px;
+   height: 20px;
+   width: 140px;
+}
 
+.legend-square {
+   height: 20px;
+   width: 20px;
+}
 .hour {
    
    font-size: 80px;
