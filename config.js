@@ -7,10 +7,10 @@ const center = {
    heading: 84.28745709019086
 }
 
-const max = { speeds: 31.9444, flows: 13.3933 }
+
 
 const hereCredentials = {
    apikey: 'EybNF4MkvcUj8WX1VJRKhT9dwDVz1wIHaKGF5tpqNss'
 }
 
-export { center, hereCredentials, max };
+export { center, hereCredentials };

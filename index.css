@@ -108,19 +108,34 @@ body, html {
    /* padding-bottom: 10px; */
 }
 
-.desc-row {
+.col {
    display: flex;
    justify-content: space-between;
    align-items: flex-end;
-   color: rgba(255, 255, 255, 0.5);
-   font-size: 24px;
    padding-bottom: 20px;
 }
 
-.color-legend {
+.desc-row {
+   color: rgba(255, 255, 255, 0.5);
+   font-size: 24px;
+   
+}
+.color-legend-container {
+   display: flex;
+   color: rgba(255, 255, 255, 0.3)
+}
+.color-legend {   
    border-radius: 2px;
    height: 20px;
    width: 140px;
+   margin: 0 5px;
+}
+
+.color-legend-labels {
+   color: rgba(255, 255, 255, 0.3);
+   display: flex;
+   justify-content: space-between;
+   padding-bottom: 5px;
 }
 
 .legend-square {

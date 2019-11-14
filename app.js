@@ -1,4 +1,4 @@
-import { center, hereCredentials, max } from "./config.js";
+import { center, hereCredentials } from "./config.js";
 import MapRotation from './MapRotation.js';
 import { formatTime, $, $$} from './helpers.js';
 
@@ -8,8 +8,9 @@ const STATE = {
    animationStarted: false,
    z: 0
 }
+const max = { speeds: 31.9444, flows: 13.3933 }
 
-const hsl = h => h <= 360 ? `hsl(${h}, 100%, 44%)` : `hsl(360, 100%, 44%)`;
+const hsl = h => h <= 360 ? `hsl(${h}, 100%, 44%)` : `hsl(${h}, 100%, 44%)`;
 
 const colorRanges = {
    speeds: {
@@ -48,7 +49,12 @@ function calculateGradient(type) {
    // const squares = keyColors.map(x => `<div class="legend-square" style="background: ${x}"></div>`).join('');
    // console.log(squares);
    // document.querySelector('.color-legend').innerHTML = squares;
-   const gradient = `linear-gradient(to right, ${hsl(hslMin)}, ${hsl((hslMax - hslMin) / 2 + hslMin)}, ${hsl(hslMax)}`;
+   const gradient = `linear-gradient(
+      to right, 
+      ${hsl(hslMin)}, 
+      ${hsl((hslMax - hslMin) / 2 + hslMin)}, 
+      ${hsl(hslMax)}
+   )`;
    
    return gradient;
 }
@@ -101,7 +107,11 @@ function setStyle(value) {
 
    dataStyle.setProperty("layers.xyz.lines.draw.lines.color", function() {
       const v = feature[`properties.${global.type}.${global.value}`];
-      const color = global.type === 'speeds' ? v * 4 : v * 60 + 200;
+      let color = global.type === 'speeds' ? v * 4 : v * 60 + 200;
+      if (color > 360) {
+         color = 360;
+      }
+      
       return `hsl(${color}%, 100%, 44%)`
    });
 
@@ -142,15 +152,16 @@ $('.type').onclick = () => {
 }
 
 function plot(ind) {
+   document.querySelector('.legend-min').innerText = 0;
+   document.querySelector('.legend-max').innerText = Math.round(10 * max[STATE.type]) / 10;
    document.querySelector('.color-legend').style.background = calculateGradient(STATE.type)
-   // $('.type').innerText = STATE.type.substring(0, 1).toUpperCase() + STATE.type.substring(1, STATE.type.length);
-   setStyle(0);
+   $('.type').innerText = ' / ' + STATE.type.substring(0, 1).toUpperCase() + STATE.type.substring(1, STATE.type.length);
+   setStyle(STATE.z);
 }
 plot();
 
 const STEP = 2000;
 document.body.onkeydown = ({code}) => {   
-   console.log(code);
    if (code === 'Space' && !STATE.animationStarted) {
       startAnimation();
       STATE.animationStarted = true;
@@ -171,8 +182,9 @@ function startAnimation() {
       if (STATE.z === 24) {
          STATE.z = 0;
       }
-      setStyle(STATE.z)
       STATE.z++;
+      setStyle(STATE.z)
+      
    }, STEP)
    $('.progress-fill').classList.add('progress');
 }
@@ -184,12 +196,7 @@ map.addEventListener('mapviewchangestart', () => {
 });
    
 map.addEventListener('mapviewchangeend', () => {
-   $('.loading-outer-container').style.opacity = 0;
-   console.log(
-      map.getViewModel().getLookAtData()
-   )
-
-   
+   $('.loading-outer-container').style.opacity = 0;   
 });
 
 const rotation = new MapRotation(map);
@@ -225,7 +232,6 @@ async function drive(file) {
 
 
       const times =  distance * constant * 10;
-      console.log(times, distance);
       for (let x = 1; x < 10; x++) {
 
          
@@ -283,5 +289,3 @@ function lerp(v0, v1, t) {
 }
 
 const files = ['101', 'sf'];
-
-console.log('hi')
