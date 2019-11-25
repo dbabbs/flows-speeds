@@ -122,11 +122,12 @@ body, html {
 }
 .color-legend-container {
    display: flex;
-   color: rgba(255, 255, 255, 0.3)
+   color: rgba(255, 255, 255, 0.3);
+   align-items: center;
 }
 .color-legend {   
    border-radius: 2px;
-   height: 20px;
+   height: 3vh;
    width: 140px;
    margin: 0 5px;
 }
@@ -143,12 +144,15 @@ body, html {
    width: 20px;
 }
 .hour {
-   
-   font-size: 80px;
+   font-size: 10vh;
 }
 
 .half {
    font-size: 40px;
+}
+
+.city, .type {
+   font-size: 3vh;
 }
 
 .type {
