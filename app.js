@@ -96,7 +96,6 @@ const dataLayer = new H.map.layer.TileLayer(dataProvider);
 map.addLayer(dataLayer);
 
 function setStyle(value) {
-   console.log(value);
    $('.time').innerHTML = `
    <span class="hour">${formatTime(value).time}</span>
    <span class="half">${formatTime(value).half}</span>`
@@ -106,12 +105,14 @@ function setStyle(value) {
    dataStyle.setProperty("global.value", value)
 
    dataStyle.setProperty("layers.xyz.lines.draw.lines.color", function() {
+
       const v = feature[`properties.${global.type}.${global.value}`];
+      // console.log(feature['long']);
       let color = global.type === 'speeds' ? v * 4 : v * 60 + 200;
       if (color > 360) {
          color = 360;
       }
-      
+      // return 'blue'
       return `hsl(${color}%, 100%, 44%)`
    });
 
