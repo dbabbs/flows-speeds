@@ -10,7 +10,7 @@ const center = {
 
 
 const hereCredentials = {
-   apikey: 'qHbGACVC8wUgzipkERYFIvbK8ASY9UhPsKSGTB7quRI'
+   apikey: 'mRojobbl1qOdImHy66i5hnPDZUYH-71-_HZPO6FVYcw'
 }
 
 export { center, hereCredentials };
